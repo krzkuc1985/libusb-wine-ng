@@ -3,10 +3,13 @@ WINEINC = /usr/include/wine
 
 WINE_INCLUDES = -I$(WINEINC)/windows -I$(WINEINC)/msvcrt
 
-CC = gcc
+CC = clang
 CFLAGS = \
     -m64 \
     -O2 \
+    -D__WINESRC__ \
+    -DWINE_UNIX_LIB \
+    -D_WIN64 \
     -pipe \
     -fcf-protection=none \
     -fvisibility=hidden \
@@ -19,24 +22,18 @@ CFLAGS = \
     -Wempty-body \
     -Wignored-qualifiers \
     -Winit-self \
-    -Wno-packed-not-aligned \
-    -Wshift-overflow=2 \
+    -Wno-pragma-pack \
     -Wstrict-prototypes \
     -Wtype-limits \
     -Wunused-but-set-parameter \
     -Wvla \
     -Wwrite-strings \
-    -Wpointer-arith \
-    -Wlogical-op \
-    -D__WINESRC__ \
-    -DWINE_UNIX_LIB \
-    -D_WIN64
+    -Wpointer-arith
 LDFLAGS = \
     -shared \
     -Wl,-Bsymbolic \
     -Wl,-soname,libusb0.so \
     -Wl,-z,defs \
-    -L/usr/lib64 -ldl \
     -L$(WINELIB)/x86_64-unix -l:ntdll.so
 
 WIN_LIBS = -lwinecrt0 -lucrtbase -lkernel32 -lntdll
@@ -156,11 +153,11 @@ $(x86_64_DIR)/libusb0.dll: libusb0.spec $(addprefix $(x86_64_DIR)/, $(SRCS:.c=.o
 	winegcc -o $@ $^ $(x86_64_LDFLAGS)
 
 install install-lib:: i386-windows/libusb0.dll x86_64-windows/libusb0.dll libusb0.so
-	STRIPPROG=i686-windows-strip install-sh -m 644 $(INSTALL_PROGRAM_FLAGS) i386-windows/libusb0.dll $(DESTDIR)$(dlldir)/i386-windows/libusb0.dll
+	install-sh -m 644 $(INSTALL_PROGRAM_FLAGS) i386-windows/libusb0.dll $(DESTDIR)$(dlldir)/i386-windows/libusb0.dll
 	winebuild --builtin $(DESTDIR)$(dlldir)/i386-windows/libusb0.dll
-	STRIPPROG=x86_64-windows-strip install-sh -m 644 $(INSTALL_PROGRAM_FLAGS) x86_64-windows/libusb0.dll $(DESTDIR)$(dlldir)/x86_64-windows/libusb0.dll
+	install-sh -m 644 $(INSTALL_PROGRAM_FLAGS) x86_64-windows/libusb0.dll $(DESTDIR)$(dlldir)/x86_64-windows/libusb0.dll
 	winebuild --builtin $(DESTDIR)$(dlldir)/x86_64-windows/libusb0.dll
-	STRIPPROG="$(STRIP)" install-sh $(INSTALL_PROGRAM_FLAGS) libusb0.so $(DESTDIR)$(dlldir)/x86_64-unix/libusb0.so
+	install-sh $(INSTALL_PROGRAM_FLAGS) libusb0.so $(DESTDIR)$(dlldir)/x86_64-unix/libusb0.so
 
 install install-dev:: libusb0.a i386-windows/libusb0.a x86_64-windows/libusb0.a
 	../tools/install-sh -m 644 $(INSTALL_DATA_FLAGS) libusb0.a $(DESTDIR)$(dlldir)/x86_64-unix/libusb0.a

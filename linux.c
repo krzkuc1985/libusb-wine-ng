@@ -590,7 +590,7 @@ int usb_submit_async(void *context, char *bytes, int size)
 {
 	int ret;
 
-	usb_context_t *c = (usb_context_t *)context;
+	usb_context_t *c = context;
 
 	c->urb.buffer = bytes;
 	c->urb.buffer_length = size;
@@ -609,7 +609,7 @@ int usb_submit_async(void *context, char *bytes, int size)
 static int _usb_reap_async(void *context, int timeout, int cancel)
 {
 	int rc;
-	usb_context_t *c = (usb_context_t *)context, *b;
+	usb_context_t *c = context, *b;
 	struct usb_urb *urb;
 
 	if (c->reaped)
@@ -622,7 +622,7 @@ again:
 		return rc;
 	}
 
-	b = (usb_context_t *)urb->usercontext;
+	b = urb->usercontext;
 	if (b != c) {
 		b->reaped = 1;
 		goto again;
@@ -653,7 +653,7 @@ int usb_reap_async_nocancel(void *context, int timeout)
 int usb_cancel_async(void *context)
 {
     int rc;
-    usb_context_t *c = (usb_context_t *)context;
+    usb_context_t *c = context;
 
     printf("%s()\n", __func__);
     USB_ERROR_STR(-errno, "usb_cancel_async is not yet implemented: %s\n", strerror(errno));
