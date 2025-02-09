@@ -153,11 +153,11 @@ $(x86_64_DIR)/libusb0.dll: libusb0.spec $(addprefix $(x86_64_DIR)/, $(SRCS:.c=.o
 	winegcc -o $@ $^ $(x86_64_LDFLAGS)
 
 install install-lib:: i386-windows/libusb0.dll x86_64-windows/libusb0.dll libusb0.so
-	install-sh -m 644 $(INSTALL_PROGRAM_FLAGS) i386-windows/libusb0.dll $(DESTDIR)$(dlldir)/i386-windows/libusb0.dll
-	winebuild --builtin $(DESTDIR)$(dlldir)/i386-windows/libusb0.dll
-	install-sh -m 644 $(INSTALL_PROGRAM_FLAGS) x86_64-windows/libusb0.dll $(DESTDIR)$(dlldir)/x86_64-windows/libusb0.dll
-	winebuild --builtin $(DESTDIR)$(dlldir)/x86_64-windows/libusb0.dll
-	install-sh $(INSTALL_PROGRAM_FLAGS) libusb0.so $(DESTDIR)$(dlldir)/x86_64-unix/libusb0.so
+	install-sh -m 644 $(INSTALL_PROGRAM_FLAGS) i386-windows/libusb0.dll $(DESTDIR)$(WINELIB)/i386-windows/libusb0.dll
+	winebuild --builtin $(DESTDIR)$(WINELIB)/i386-windows/libusb0.dll
+	install-sh -m 644 $(INSTALL_PROGRAM_FLAGS) x86_64-windows/libusb0.dll $(DESTDIR)$(WINELIB)/x86_64-windows/libusb0.dll
+	winebuild --builtin $(DESTDIR)$(WINELIB)/x86_64-windows/libusb0.dll
+	install-sh $(INSTALL_PROGRAM_FLAGS) libusb0.so $(DESTDIR)$(WINELIB)/x86_64-unix/libusb0.so
 
 install install-dev:: libusb0.a i386-windows/libusb0.a x86_64-windows/libusb0.a
 	../tools/install-sh -m 644 $(INSTALL_DATA_FLAGS) libusb0.a $(DESTDIR)$(dlldir)/x86_64-unix/libusb0.a
