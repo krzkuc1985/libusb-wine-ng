@@ -46,3 +46,5 @@ I didn't port following libusb-win32 functions to libusb-wine:
  * usb_interrupt_setup_async
 
 however, all Windows applications I tested with libusb-wine do not use them.
+
+Good luck.
