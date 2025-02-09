@@ -18,9 +18,9 @@ according to your actual paths to Wine libraries and includes
     $ make
     $ make install
 
-Don't forget to copy i386/libusb0.dll and x86_64/libusb0.dll to
-\${WINEPREFIX}/drive_c//windows/syswow64 and 
-\${WINEPREFIX}/drive_c//windows/system32 respectively 
+Don't forget to copy `i386-windows/libusb0.dll` and `x86_64-windows/libusb0.dll` to
+`${WINEPREFIX}/drive_c//windows/syswow64` and 
+`${WINEPREFIX}/drive_c//windows/system32` respectively 
 if you already have initialized WINEPREFIX.
 
 I didn't port following libusb-win32 functions to libusb-wine:
