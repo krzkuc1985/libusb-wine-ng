@@ -9,8 +9,8 @@ Prerequisites: Wine with winegcc and winebuild
 Building and installing:
 
 Set makefile variables
-WINELIB = /usr/lib64/wine
-WINEINC = /usr/include/wine
+    WINELIB = /usr/lib64/wine
+    WINEINC = /usr/include/wine
 according to your actual paths to Wine libraries and includes
 
     $ make
