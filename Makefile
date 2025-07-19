@@ -164,6 +164,16 @@ install install-dev:: libusb0.a i386-windows/libusb0.a x86_64-windows/libusb0.a
 	install -m 644 $(INSTALL_DATA_FLAGS) i386-windows/libusb0.a $(DESTDIR)$(WINELIB)/i386-windows/libusb0.a
 	install -m 644 $(INSTALL_DATA_FLAGS) x86_64-windows/libusb0.a $(DESTDIR)$(WINELIB)/x86_64-windows/libusb0.a
 
+uninstall uninstall-lib::
+	rm -f $(DESTDIR)$(WINELIB)/i386-windows/libusb0.dll
+	rm -f $(DESTDIR)$(WINELIB)/x86_64-windows/libusb0.dll
+	rm -f $(DESTDIR)$(WINELIB)/x86_64-unix/libusb0.so
+
+uninstall uninstall-dev::
+	rm -f $(DESTDIR)$(WINELIB)/x86_64-unix/libusb0.a
+	rm -f $(DESTDIR)$(WINELIB)/i386-windows/libusb0.a
+	rm -f $(DESTDIR)$(WINELIB)/x86_64-windows/libusb0.a
+
 clean::
 	rm -f libusb0.a libusb0.so unixlib.o
 	rm -rf $(i386_DIR) $(x86_64_DIR)
